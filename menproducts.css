@@ -1,0 +1,648 @@
+/* ======================================================== */
+/*               ESTILOS GENERALES Y FUENTES                   */
+/* ======================================================== */
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden !important;
+}
+
+@font-face {
+    font-family: 'GW Bantley Regular-Trial';
+    src: url('fonts/GWBantley-Regular-Trial.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    /* Fondo blanco de la página de productos (MANTENIDO) */
+    background-color: #ffffff; 
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* ======================================================== */
+/*                     HEADER (Unificado)                     */
+/* ======================================================== */
+
+/* --- HEADER PRINCIPAL --- */
+.header {
+    width: 100%;
+    height: 80px;
+    background-color: hsla(0, 0%, 0%, 0); 
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.5s ease;
+    padding: 0 25px; 
+}
+
+/* Efecto hover (Solo PC): el header se vuelve negro y el logo, el menú y
+   los íconos pasan a blanco con la misma duración, para que todo cambie a la vez. */
+@media (min-width: 1200px) {
+    .header:hover {
+        background-color: #000000;
+    }
+
+    .header .logoimg {
+        transition: filter 0.5s ease;
+    }
+
+    /* El logo negro se vuelve blanco (el PNG es de un solo color con fondo transparente) */
+    .header:hover .logoimg {
+        filter: brightness(0) invert(1);
+    }
+
+    .header .nav-item > a,
+    .header .header-icons .icon {
+        transition: color 0.5s ease, transform 0.3s ease-in-out;
+    }
+
+    .header:hover .nav-item > a,
+    .header:hover .header-icons .icon {
+        color: #ffffff;
+    }
+
+    .header:hover .nav-item > a:hover,
+    .header:hover .header-icons .icon:hover {
+        color: #9A9A9A;
+    }
+}
+
+.header-content {
+    width: 100%;
+    max-width: 1920px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; 
+}
+
+/* LOGO */
+.header-logo {
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.header-logo:hover {
+    transform: scale(1.1);
+}
+
+.logoimg { 
+    width: 150px;
+}
+
+/* NAVEGACIÓN PC */
+.header-nav, .header-icons {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+/* ... Estilos de navegación PC (Mantenidos) ... */
+.header-nav .nav-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+.header-nav .nav-item {
+    position: relative;
+    margin: 0 15px;
+}
+
+.header-nav .nav-item > a {
+    color: #000000; 
+    text-decoration: none;
+    font-family: 'Helvetica', sans-serif;
+    text-shadow: none; 
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.header-nav .nav-item > a:hover {
+    color: #000000;
+    transform: scale(1.1);
+}
+
+/* Dropdown */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #E2E2E2;
+    padding: 10px;
+    z-index: 20;
+    border-radius: 0%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    color: #707070;
+    padding: 5px 10px;
+    text-decoration: none;
+    display: block;
+    font-family: 'Helvetica', sans-serif;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: #d8d8d8;
+    color: black;
+}
+
+/* Íconos PC */
+.header-icons .icon {
+    color: #000000; 
+    margin-left: 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.header-icons .icon:hover {
+    color: #212121;
+    transform: scale(1.1);
+}
+/* --- MENÚ HAMBURGUESA (Mantenido el color gris oscuro y animación) --- */
+
+.hamburger {
+    display: none;
+    width: 28px;
+    height: 22px;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+.hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #4A4A4A; /* GRIS OSCURO SOLICITADO */
+    transition: .3s ease;
+}
+
+/* HAMBURGUESA → X */
+.hamburger.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+.hamburger.active span {
+    background-color: #4A4A4A; /* GRIS OSCURO para la X al estar activo */
+}
+
+
+/* --- MENÚ MÓVIL BASE (AJUSTADO PARA REPLICAR INDEX.CSS) --- */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px; /* Ancho fijo de index.css */
+    height: 100vh; /* Alto total de index.css */
+    background-color: #ffffff; /* Fondo blanco de index.css */
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    /* Eliminamos el centrado */
+    transform: translateX(-100%);
+    transition: transform 0.35s ease; /* Transición de index.css */
+    padding: 80px 25px; /* Padding de index.css */
+    gap: 25px; /* Separación de enlaces */
+}
+
+.mobile-menu.open {
+    transform: translateX(0);
+}
+
+.mobile-menu a {
+    color: #111; /* Color de texto oscuro de index.css */
+    text-decoration: none;
+    font-family: 'Helvetica', sans-serif; /* Tipografía de index.css */
+    font-size: 20px; /* Tamaño de texto de index.css */
+    font-weight: 400; /* Peso normal de index.css */
+    padding: 0;
+    transition: color 0.3s ease;
+}
+
+.mobile-menu a:hover {
+    color: #707070;
+}
+
+/* --- ESTILOS RESPONSIVOS DEL HEADER (Mantenidos) --- */
+
+@media (max-width: 1199px) {
+    /* 1. Header siempre gris en celular */
+    .header {
+        background-color: #E2E2E2; /* Fondo gris fijo */
+        transition: none;
+    }
+    
+    /* Eliminar el hover en móvil */
+    .header:hover {
+        background-color: #E2E2E2; 
+        transition: none;
+    }
+
+    /* Ocultar NAV e ICONOS de PC */
+    .header-nav, .header-icons {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* **Mantenido**: Mostrar hamburguesa en el lado IZQUIERDO */
+    .hamburger {
+        display: flex; 
+        position: absolute;
+        left: 20px; 
+        right: auto;
+    }
+
+    /* 3. Logo en el centro (Mantiene la posición) */
+    .header-logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 0 15px; 
+    }
+
+    .header-content {
+        padding: 0;
+    }
+
+    /* Posición de la X cuando el menú está activo (se mantiene a la izquierda) */
+    .hamburger.active {
+        position: fixed; 
+        top: 29px;
+        left: 35px; /* Alineado a la izquierda */
+        right: auto;
+        z-index: 10000;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        height: 70px;
+    }
+
+    .hamburger.active {
+        top: 20px;
+    }
+    
+    .logoimg {
+        width: 130px;
+    }
+}
+
+/* ======================================================== */
+/*             CONTENIDO CENTRAL (Ajustado)                 */
+/* ======================================================== */
+
+/* ===== MARCA DE AGUA "Raw Style / Real Presence" =====
+   Fija detrás de los productos. Reutilizable en la página de mujer
+   copiando el mismo bloque <div class="brand-watermark"> del HTML. */
+.brand-watermark {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    /* Horizontal: ambos textos en una línea, centrados y alineados por la base */
+    display: grid;
+    grid-auto-flow: column;
+    place-content: center;
+    align-items: baseline;
+    column-gap: 2vw;
+    pointer-events: none;
+    user-select: none;
+    overflow: hidden;
+    color: #dcdcdc; /* gris claro, un poco más oscuro que antes (#ececec) */
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.brand-watermark .wm-raw {
+    font-family: javanese, serif; /* misma fuente que "Raw Style" del inicio */
+    font-size: 5.5vw;
+}
+
+.brand-watermark .wm-real {
+    font-family: 'GW Bantley Regular-Trial', serif;
+    font-size: 8.5vw;
+}
+
+.brand-watermark .wm-real sup {
+    font-size: 0.3em;
+    top: -1.6em;
+}
+
+/* Todo el contenido queda por encima de la marca de agua */
+.store-layout,
+.footer {
+    position: relative;
+    z-index: 1;
+}
+
+
+
+/* ... (Resto del CSS del Footer y Store Layout sin cambios) ... */
+.footer {
+    width: 100%;
+    max-width: 1920px;
+    min-height: 300px;
+    background-color: #E2E2E2;
+    color: #707070;
+    font-family: 'Helvetica', sans-serif;
+    padding: 50px 20px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.footer-column h4 {
+    font-weight: bold;
+    color: #707070;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.footer-column a, .footer-column p {
+    color: #707070;
+    text-decoration: none;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: #000000;
+}
+
+.footer-middle-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.footer-middle-content p {
+    margin: 0;
+}
+
+.footer-middle-content .copyright {
+    font-size: 0.8rem;
+    align-self: flex-start;
+}
+
+.footer-newsletter-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 10px;
+}
+
+.footer-newsletter-form input {
+    padding: 10px;
+    border: 1px solid #707070;
+    background-color: transparent;
+    color: #707070;
+    margin-bottom: 10px;
+}
+
+.footer-newsletter-form input::placeholder {
+    color: #999;
+}
+
+.footer-newsletter-form button {
+    padding: 10px;
+    border: 1px solid #707070;
+    background-color: transparent;
+    color: #707070;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.footer-newsletter-form button:hover {
+    background-color: #707070;
+    color: #E2E2E2;
+}
+
+/* RESPONSIVE FOOTER */
+@media (max-width: 768px) {
+    .footer {
+        padding: 30px 70px; 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 25px; 
+    }
+}
+
+/* Botón de Filtro Flotante */
+#filterToggleButton {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
+    background-color: #212121;
+    color: #E2E2E2;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: right 0.4s ease-in-out, background-color 0.3s ease;
+}
+
+#filterToggleButton i {
+    margin-right: 8px;
+}
+
+#filterToggleButton:hover {
+    background-color: #000000;
+}
+
+#filterToggleButton.filter-active {
+    right: 230px;
+}
+
+/* Contenedor Principal de la Tienda */
+.store-layout {
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding-top: 100px;
+    min-height: 100vh;
+}
+
+/* Contenedor de la Galería */
+.product-gallery-container {
+    transition: margin-right 0.4s ease-in-out; 
+    padding: 20px 40px;
+    max-width: 100%; 
+}
+
+.filter-open .product-gallery-container {
+    margin-right: 200px; 
+}
+
+/* Galería de Productos */
+#productGallery {
+    padding-top: 20px;
+}
+
+.product-col {
+    padding: 0 10px;
+}
+
+/* Estilo de la Card del Producto */
+.product-card {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    background-color: transparent !important;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card .image-container {
+    overflow: hidden;
+}
+
+.product-card img {
+    border-radius: 0;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
+.product-card .card-body {
+    text-align: left;
+}
+
+.product-card .card-title {
+    color: #212121 !important;
+    text-transform: uppercase;
+}
+
+.product-card .card-text {
+    color: #707070 !important;
+}
+
+/* Badge de SALE */
+.sale-badge {
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem !important;
+    letter-spacing: 1px;
+}
+
+/* --- Panel de Filtro Lateral --- */
+.filter-sidebar {
+    width: 200px;
+    background-color: #f7f7f7; 
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    padding: 80px 10px 20px 20px;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%); 
+    transition: transform 0.4s ease-in-out; 
+    z-index: 999;
+    overflow-y: auto;
+    border-left: 1px solid #ddd;
+    color: #212121;
+}
+
+.filter-sidebar h5 {
+    color: #212121;
+}
+
+.filter-sidebar h6 {
+    color: #707070;
+    margin-top: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.filter-sidebar.active {
+    transform: translateX(0);
+}
+
+.filter-group {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.filter-option label {
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.form-range {
+    width: 90%;
+}
+
+/* Media Query para el Contenido Central */
+@media (max-width: 991px) {
+    .filter-sidebar {
+        width: 100%;
+        max-width: 250px;
+        padding-top: 60px;
+    }
+    .filter-open .product-gallery-container {
+        margin-right: 0;
+        width: 100%;
+    }
+    #filterToggleButton.filter-active {
+        right: 260px;
+    }
+}

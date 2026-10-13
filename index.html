@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edged Noir</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="poster-reel.css">
+    <link rel="icon" href="img/egdednoir-favicon.png">
+    <link rel="preload" href="fonts/GWBantley-Regular-Trial.woff" as="font" type="font/woff" crossorigin="anonymous">
+    <style> 
+       
+    </style>
+    <link rel="stylesheet" href="shop.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <a href="index.html" class="header-logo">
+                <img src="img/logo.png" class="logoimg" id="logo"
+                onerror="this.onerror=null; this.src='https://placehold.co/150x50/E2E2E2/292929?text=LOGO';">
+            </a>
+
+            <nav class="header-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="men.html">MEN</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-icons">
+                <i class="fas fa-search icon"></i>
+                <i class="fas fa-shopping-cart icon"></i>
+            </div>
+        </div>
+
+        <nav id="mobile-menu" class="mobile-menu">
+            <a href="men.html">MEN</a>
+        </nav>
+    </header>
+    <main class="main-hero">
+        <div class="hero-background-layer" id="bg-image-1">
+            <video src="img/videoprincipal.mp4" autoplay muted loop playsinline></video>
+        </div>
+
+        <div class="main-hero-content">
+            <div class="hero-text left" id="rawStyle">Raw Style</div>
+            <div class="hero-text right" id="realPresence">Real Presence <sup>®</sup></div>
+        </div>
+        
+    </main>
+
+    <div class="fixed-hero-buttons">
+        <a href="men.html" class="hero-btn-fixed">MEN</a>
+    </div>
+
+    <div class="text-section">
+    <p class="top-text">
+        EDGED NOIR WASN’T BORN TO FOLLOW PATTERNS.<br>
+        IT EMERGED AS A QUIET YET DELIBERATE RESPONSE TO THE ORDINARY.<br>
+        EVERY DESIGN WE CREATE BREATHES ART — NOT AS DECORATION
+    </p>
+    <p class="bottom-text">But as a Statement</p>
+</div>
+
+<!-- ===== CAMISETAS: carrusel en abanico (Swiper, efecto coverflow) ===== -->
+<section class="tee-coverflow" aria-label="T-shirt gallery">
+    <div class="swiper tee-swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="img/you cannot rule the world black tshirt.png" alt="You Cannot Rule the World black t-shirt" draggable="false"></div>
+            <div class="swiper-slide"><img src="img/negro-negro-adelante.png" alt="Black t-shirt, front" draggable="false"></div>
+            <div class="swiper-slide"><img src="img/the-world-is-noise-streetwear-t-shirt.png" alt="The World is Noise streetwear t-shirt" draggable="false"></div>
+            <div class="swiper-slide"><img src="img/atras blanco2.png" alt="White t-shirt, back" draggable="false"></div>
+            <div class="swiper-slide"><img src="img/adelante blanco2.png" alt="White t-shirt, front" draggable="false"></div>
+            <div class="swiper-slide"><img src="img/blaco-atrás-blanco2.png" alt="White t-shirt, back print" draggable="false"></div>
+            <div class="swiper-slide"><img src="img/blanco-negro-atrás4.png" alt="Ataraxia t-shirt, back" draggable="false"></div>
+            <div class="swiper-slide"><img src="img/findurpower-tshirt-front.png" alt="Find Your Power t-shirt, front" draggable="false"></div>
+            <div class="swiper-slide"><img src="img/findurpower-tshirt.png" alt="Find Your Power t-shirt, back" draggable="false"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <button type="button" class="tee-nav tee-prev" aria-label="Previous"><img src="img/flechaIzq.png" alt=""></button>
+        <button type="button" class="tee-nav tee-next" aria-label="Next"><img src="img/flechaDer.png" alt=""></button>
+    </div>
+    <div class="tee-cta">
+        <a href="men.html" class="tee-cta-btn">Go to the Store <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+</section>
+
+<!-- ===== POSTERS: fila curva en 3D (los posters se definen en poster-reel.js) ===== -->
+<section class="poster-reel" id="posterReel" aria-labelledby="posterReelTitle">
+    <div class="poster-reel-head">
+        <span class="poster-reel-kicker">Poster Collection</span>
+        <h2 class="poster-reel-title" id="posterReelTitle">Every Poster, a Statement</h2>
+    </div>
+    <div class="poster-band" aria-hidden="true"></div>
+    <p class="poster-reel-hint">Click any poster to read its story</p>
+    <!-- Acceso con teclado / lector de pantalla: aparece al enfocar con Tab -->
+    <ul class="poster-reel-a11y" id="posterReelList"></ul>
+</section>
+
+<!-- Ventana con el detalle de cada poster -->
+<div class="poster-modal" id="posterModal" role="dialog" aria-modal="true" aria-labelledby="posterModalTitle" hidden>
+    <div class="poster-modal-backdrop" data-close></div>
+    <div class="poster-modal-panel">
+        <button type="button" class="poster-modal-close" data-close aria-label="Close">&#10005;</button>
+        <div class="poster-modal-media">
+            <img id="posterModalImg" src="" alt="">
+        </div>
+        <div class="poster-modal-body">
+            <span class="poster-modal-count" id="posterModalCount"></span>
+            <h3 class="poster-modal-title" id="posterModalTitle"></h3>
+            <p class="poster-modal-quote" id="posterModalQuote"></p>
+            <p class="poster-modal-desc" id="posterModalDesc"></p>
+            <div class="poster-modal-tags" id="posterModalTags"></div>
+            <div class="poster-modal-nav">
+                <button type="button" id="posterPrev" aria-label="Previous poster"><i class="fas fa-arrow-left"></i> Prev</button>
+                <button type="button" id="posterNext" aria-label="Next poster">Next <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="full-width-section-with-text">
+        <video src="img/BuiltToCreate.mp4" id="video2" autoplay loop muted playsinline width="100%" alt="New Section Video"></video> 
+        <div class="text-top-overlay">
+            <h1>Born to Create</h1>
+        </div>
+        <div class="text-bottom-overlay">
+            <h1>Built to Disrupt</h1>
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-column">
+        <h4>CUSTOM SERVICE</h4>
+        <a href="#">Payments</a>
+        <a href="#">Shipping</a>
+        <a href="#">Returns and Exchanges</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Terms and Conditions</a>
+        <div class="footer-social-icons mt-4">
+            <a href="#"><i class="fab fa-facebook-f icon"></i></a>
+            <a href="https://www.instagram.com/edged_noir/"><i class="fab fa-instagram icon"></i></a>
+            <a href="#"><i class="fab fa-tiktok icon"></i></a>
+        </div>
+    </div>
+    
+    <div class="footer-column footer-middle-content">
+        <h4>COMPANY</h4>
+        <a href="#">About us</a>
+        <h4 class="mt-4">SHIPPING WORLDWIDE</h4>
+        <p class="mt-1">We deliver to 100+ countries Worldwide</p>
+        <p class="copyright mt-4">© Copyright all rights reserved</p>
+    </div>
+    
+    <div class="footer-column">
+        <h4>NEWSLETTER</h4>
+        <p>Receive promotions and exclusive information.</p>
+        <div class="footer-newsletter-form">
+            <input type="email" placeholder="your e-mail">
+            <button type="submit">SUBSCRIBE</button>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
+
+<script>
+    // ===== CARRUSEL DE CAMISETAS (efecto coverflow de Swiper) =====
+    // Versión en HTML/JS del componente "Skiper49 / Carousel_003".
+    (function () {
+        const section = document.querySelector('.tee-coverflow');
+        if (!section) return;
+
+        // Aparece suavemente al llegar a la sección (equivale al framer-motion del original).
+        // Va primero para que las fotos se vean aunque Swiper no cargue.
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    section.classList.add('is-visible');
+                    io.disconnect();
+                }
+            }, { threshold: 0.2 });
+            io.observe(section);
+        } else {
+            section.classList.add('is-visible');
+        }
+
+        if (typeof Swiper === 'undefined') {
+            section.classList.add('no-swiper');
+            return;
+        }
+
+        new Swiper('.tee-swiper', {
+            effect: 'coverflow',
+            grabCursor: true,          // se arrastra con clic sostenido o con el dedo
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            loop: true,
+            speed: 700,
+            coverflowEffect: {
+                rotate: 40,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true
+            },
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
+            pagination: { el: '.tee-swiper .swiper-pagination', clickable: true },
+            navigation: { nextEl: '.tee-next', prevEl: '.tee-prev' },
+            keyboard: { enabled: true, onlyInViewport: true }
+        });
+    })();
+</script>
+
+<!-- Galería de posters en curva 3D + ventana de detalle -->
+<script src="shop.js"></script>
+<script src="poster-reel.js"></script>
+
+<script>
+    // Se ejecuta cuando la página ha terminado de cargar
+    window.onload = function() {
+        // Se obtienen las referencias a los elementos de texto
+        const rawStyleText = document.getElementById('rawStyle');
+        const realPresenceText = document.getElementById('realPresence');
+
+        // ANIMACIÓN DE FONDO DEL HERO
+        const bgImage2 = document.getElementById('bg-image-2');
+        
+        setTimeout(() => {
+            if (bgImage2) {
+                bgImage2.style.opacity = '1';
+            }
+        }, 2000);
+
+        // Script para el efecto de scroll de los textos (Aunque se ocultan en móvil, el script se mantiene)
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const translateYValue = Math.min(scrollY, 20);
+
+            if (rawStyleText) rawStyleText.style.transform = `translateY(${translateYValue}px)`;
+            if (realPresenceText) realPresenceText.style.transform = `translateY(${translateYValue}px)`;
+        });
+
+    };
+</script>
+
+
+<script>
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        mobileMenu.classList.toggle("open");
+    });
+</script>
+
+<!-- El cambio del logo a negro al pasar el mouse se hace en index.css (.header-logo:hover .logoimg) -->
+
+</body>
+</html>

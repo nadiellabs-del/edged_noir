@@ -1,0 +1,774 @@
+/* ======================================================== */
+/*                 ESTILOS CSS REESCRITOS                   */
+/* ======================================================== */
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden !important;
+}
+
+@font-face {
+    font-family: 'GW Bantley Regular-Trial';
+    src: url('fonts/GWBantley-Regular-Trial.woff') format('woff');
+    font-display: swap;
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Evita el scroll horizontal */
+}
+
+/* --- HEADER PRINCIPAL --- */
+.header {
+    width: 100%;
+    height: 80px;
+    background-color: hsla(0, 0%, 0%, 0); 
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.5s ease;
+    padding: 0 25px; 
+}
+
+/* Al pasar el mouse el header se vuelve negro; el logo y el menú siguen en blanco */
+.header:hover {
+    background-color: #000000;
+}
+
+.header-content {
+    width: 100%;
+    max-width: 1920px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; 
+}
+
+/* LOGO */
+.header-logo {
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.header-logo:hover {
+    transform: scale(1.1);
+}
+
+.logoimg { 
+    width: 150px;
+    content: url('img/logo.png'); /* Logo blanco sobre el video y sobre el header negro */
+}
+
+/* NAVEGACIÓN PC */
+.header-nav, .header-icons {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+.header-nav .nav-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+.header-nav .nav-item {
+    position: relative;
+    margin: 0 15px;
+}
+
+.header-nav .nav-item > a {
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Helvetica', sans-serif;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Sobre el header negro la sombra del texto ya no hace falta */
+.header:hover .nav-item > a {
+    text-shadow: none;
+}
+
+.header-nav .nav-item > a:hover {
+    color: #9A9A9A;
+    text-shadow: none;
+    transform: scale(1.1);
+}
+
+.header-icons .icon {
+    color: #ffffff;
+    margin-left: 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.header-icons .icon:hover {
+    color: #9A9A9A;
+    transform: scale(1.1);
+}
+
+/* --- MENÚ HAMBURGUESA Y MÓVIL --- */
+.hamburger {
+    display: none; 
+    width: 28px;
+    height: 22px;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+.hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+    transition: .3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+.hamburger.active span {
+    background-color: #b1b1b1;
+}
+
+.hamburger.active {
+    z-index: 10000; 
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background-color: #ffffff;
+    padding: 80px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    transform: translateX(-100%);
+    transition: transform .35s ease;
+    z-index: 9998; 
+}
+
+.mobile-menu a {
+    color: #111;
+    font-size: 20px;
+    text-decoration: none;
+    font-family: 'Helvetica', sans-serif; 
+}
+
+.mobile-menu.open {
+    transform: translateX(0);
+}
+
+/* --- ESTILOS PARA BOTONES FIJOS (NUEVOS) --- */
+.fixed-hero-buttons {
+    /* **Posición Fija** - Esto hace que se queden arriba al hacer scroll. */
+    position: absolute; 
+    bottom: 30px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100; 
+    width: 90%; 
+    max-width: 450px;
+    /* CAMBIO CLAVE: Ocultar por defecto en Desktop. Se mostrará en media query. */
+    display: none; 
+    justify-content: space-around;
+    align-items: center;
+    top: 25rem;
+}
+
+.hero-btn-fixed {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: transparent;
+    padding: 10px 20px;
+    border: 2px solid #ffffff;
+    font-family: 'Helvetica', sans-serif; 
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
+    width: 45%;
+    text-align: center;
+}
+
+.hero-btn-fixed:hover {
+    background-color: #ffffff;
+    color: #121212;
+    text-shadow: none; 
+    border-color: #121212;
+    transform: scale(1.05);
+}
+
+/* NUEVO: Animación sutil al hacer 'tap' en móviles */
+.hero-btn-fixed:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+}
+
+/* --- SECCIONES PRINCIPALES --- */
+
+.main-hero {
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    height: 803px; 
+    margin: 0 auto; 
+}
+
+.hero-background-layer {
+    position: absolute;
+    top: 0px; /* Estilo para PC */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover; 
+    background-position: center;
+    z-index: 0; 
+}
+
+.hero-background-layer video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.main-hero-content {
+    position: relative;
+    z-index: 2; 
+    height: 100%;
+}
+
+/* ESTILOS DEL TEXTO PRINCIPAL */
+.hero-text {
+    font-weight: 400;
+    line-height: 1.2;
+    transition: transform 0.2s ease-out; 
+    position: absolute;
+    color: #ffffff;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    overflow: hidden !important;
+    max-width: 100% !important;
+    word-break: break-word !important;
+    text-align: center !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
+
+/* Raw Style */
+.hero-text.left {
+    top: 40rem;
+    font-family: javanese;
+    font-size: 5rem;
+    white-space: nowrap;
+    margin-left: -16%;
+}
+
+/* Real Presence */
+.hero-text.right {
+    top: 37.8rem;
+    font-family: 'GW Bantley Regular-Trial';
+    font-size: 8rem;
+    white-space: nowrap;
+    margin-left: 16%;
+}
+
+
+
+/* --- TEXT SECTION --- */
+.text-section {
+    width: 100%;
+    max-width: 1920px;
+    background-color: #060606;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.text-section p.top-text {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.text-section p.bottom-text {
+    font-family: 'GW Bantley Regular-Trial';
+    font-size: 5.5rem;
+    margin: -12px;
+    text-align: center;
+    /* La cola de la "t" final sobresale a la derecha de la caja del texto;
+       este corrimiento centra lo que realmente se ve (medido en pantalla) */
+    transform: translateX(-0.06em);
+}
+
+/* --- CARRUSEL DE CAMISETAS (Swiper, efecto coverflow) --- */
+.tee-coverflow {
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 56px 0 24px;
+    background-color: #060606; /* mismo negro que la sección de texto de arriba */
+    overflow: hidden;
+}
+
+.tee-swiper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56px !important; /* espacio para los indicadores */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.15s, transform 0.5s ease 0.15s;
+}
+
+.tee-coverflow.is-visible .tee-swiper {
+    opacity: 1;
+    transform: none;
+}
+
+/* Las fotos son cuadradas: la diapositiva también, así no se recortan */
+.tee-swiper .swiper-slide {
+    width: clamp(240px, 32vw, 460px);
+    aspect-ratio: 1 / 1;
+    background: #1a1a1a;
+    overflow: hidden;
+}
+
+.tee-swiper .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Indicadores en forma de raya, como el carrusel anterior */
+.tee-swiper .swiper-pagination-bullet {
+    width: 28px;
+    height: 3px;
+    border-radius: 0;
+    background-color: #ffffff !important;
+    opacity: 0.35;
+    transition: opacity 0.3s ease, width 0.3s ease;
+}
+
+.tee-swiper .swiper-pagination-bullet-active {
+    opacity: 1;
+    width: 40px;
+}
+
+/* Flechas laterales (las mismas imágenes de antes) */
+.tee-nav {
+    position: absolute;
+    top: calc(50% - 28px);
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 36px;
+    height: 90px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.tee-prev { left: 16px; }
+.tee-next { right: 16px; }
+
+.tee-nav img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(150%);
+    transition: filter 0.3s ease-in-out;
+}
+
+.tee-nav:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.tee-nav:hover img {
+    filter: none;
+}
+
+@media (max-width: 768px) {
+    .tee-coverflow { padding-top: 40px; }
+    .tee-swiper .swiper-slide { width: 68vw; }
+    .tee-nav { display: none; } /* en celular se desliza con el dedo */
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tee-swiper { transition: none; opacity: 1; transform: none; }
+}
+
+/* Botón "Go to the Store" debajo del carrusel */
+.tee-cta {
+    display: flex;
+    justify-content: center;
+    padding: 4px 16px 40px;
+}
+
+.tee-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 34px;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.tee-cta-btn i {
+    font-size: 0.8em;
+    transition: transform 0.35s ease;
+}
+
+.tee-cta-btn:hover,
+.tee-cta-btn:focus-visible {
+    background-color: #ffffff;
+    color: #060606;
+}
+
+.tee-cta-btn:hover i,
+.tee-cta-btn:focus-visible i {
+    transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+    .tee-cta { padding-bottom: 32px; }
+    .tee-cta-btn { padding: 14px 28px; font-size: 0.8rem; }
+}
+
+/* Respaldo si la librería Swiper no carga: fila simple que se desliza */
+.tee-coverflow.no-swiper .swiper-wrapper {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 0 16px;
+    scroll-snap-type: x mandatory;
+}
+
+.tee-coverflow.no-swiper .swiper-slide {
+    flex-shrink: 0;
+    scroll-snap-align: center;
+}
+
+.tee-coverflow.no-swiper .tee-nav,
+.tee-coverflow.no-swiper .swiper-pagination {
+    display: none;
+}
+
+/* --- SECCIÓN VIDEO/TEXTO OVERLAY --- */
+.full-width-section-with-text {
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    margin: 0 auto; 
+}
+
+.full-width-section-with-text video {
+    display: block;
+    width: 100%;
+    height: 100vh; 
+    object-fit: cover;
+    z-index: 1; 
+    position: relative;
+}
+
+.text-top-overlay,
+.text-bottom-overlay {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #ffffff;
+    z-index: 5; 
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+    width: 92%;
+    font-family: 'GW Bantley Regular-Trial' ;
+}
+
+.text-top-overlay {
+    top: 5%; 
+}
+
+.text-bottom-overlay {
+    bottom: 5%; 
+}
+
+.text-top-overlay h1,
+.text-bottom-overlay h1 {
+    font-family: 'GW Bantley Regular-Trial', serif;
+    font-weight: normal;
+    /* Escala con la pantalla: ~62px en un móvil de 567px, hasta 96px en escritorio */
+    font-size: clamp(2.8rem, 11vw, 6rem);
+    line-height: 1.1;
+    text-align: center;
+}
+
+/* --- FOOTER --- */
+.footer {
+    width: 100%;
+    max-width: 1920px;
+    min-height: 300px;
+    background-color: #E2E2E2;
+    color: #707070;
+    font-family: 'Helvetica', sans-serif;
+    padding: 50px 20px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.footer-column h4 {
+    font-weight: bold;
+    color: #707070;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.footer-column a, .footer-column p {
+    color: #707070;
+    text-decoration: none;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.footer-column a:hover {
+    text-decoration: underline;
+}
+
+.footer-social-icons .icon {
+    font-size: 1.2rem;
+    color: #707070;
+    margin-right: 15px;
+}
+
+.footer-middle-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.footer-middle-content p {
+    margin: 0;
+}
+
+.footer-middle-content .copyright { 
+    font-size: 0.8rem;
+    align-self: flex-start;
+}
+
+.footer-newsletter-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 10px;
+}
+
+.footer-newsletter-form input {
+    padding: 10px;
+    border: 1px solid #707070;
+    background-color: transparent;
+    color: #707070;
+    margin-bottom: 10px;
+}
+
+.footer-newsletter-form input::placeholder {
+    color: #999;
+}
+
+.footer-newsletter-form button {
+    padding: 10px;
+    border: 1px solid #707070;
+    background-color: transparent;
+    color: #707070;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.footer-newsletter-form button:hover {
+    background-color: #707070;
+    color: #E2E2E2;
+}
+
+/* ======================================================== */
+/*               ESTILOS RESPONSIVE                       */
+/* ======================================================== */
+
+/* TABLET / MÓVIL (<= 920px) */
+@media (max-width: 920px) {
+    /* **CORRECCIÓN: Muestra los botones en móvil/tablet con display: flex** */
+    .fixed-hero-buttons {
+        display: flex;
+    }
+
+    /* REGLA: Oculta "Raw Style" y "Real Presence" en móvil/tablet */
+    .hero-text.left,
+    .hero-text.right {
+        display: none !important;
+    }
+    
+    /* CORRECCIÓN DE LAYOUT SOLICITADA: Ajusta la altura del contenedor 
+       principal (803px - 200px) para compensar el desplazamiento del video. */
+    .main-hero {
+        height: 603px; 
+    }
+    
+    /* MODIFICACIÓN SOLICITADA: Ajusta la posición superior para móvil */
+    .hero-background-layer {
+        top: 0px; 
+    }
+
+    /* Oculta nav PC */
+    .header-nav {
+        display: none;
+    }
+
+    /* Muestra hamburguesa */
+    .hamburger {
+        display: flex;
+        order: -1; 
+    }
+
+    /* Ocultar iconos de carrito y buscador en móvil/tablet */
+    .header-icons {
+        margin-left: auto; 
+    }
+    
+    .header-icons .icon:nth-child(1),  /* buscador */
+    .header-icons .icon:nth-child(2) { /* carrito */
+        display: none; 
+    }
+
+    /* Ajusta tamaño del logo y centrado */
+    .logoimg {
+        width: 145px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        content: url('img/logo.png'); /* Logo blanco también en celular */
+    }
+    
+    .header:hover {
+        background-color: transparent !important;
+    }
+
+    .footer {
+        padding: 30px 70px; 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 25px; 
+    }
+}
+
+/* MÓVIL PEQUEÑO (<= 768px) */
+@media (max-width: 768px) {
+    .text-section p.top-text {
+        font-size: 1.2rem;
+    }
+
+    /* "But as a Statement" en una sola línea ocupando el 95% del ancho.
+       El trazo de la frase mide ~5.40 veces su tamaño de letra: 95vw / 5.40 ≈ 17.6vw.
+       La cola de la "t" final sobresale a la derecha, por eso se corre un poco a la izquierda. */
+    .text-section p.bottom-text {
+        font-size: 17.6vw;
+        white-space: nowrap;
+        line-height: 1.15;
+        /* Anula el relleno lateral de la sección para que quede centrada en la pantalla */
+        margin: 4px -20px 0;
+        align-self: stretch;
+    }
+
+    .header {
+        background: transparent;
+    }
+}
+
+/* MÓVIL EXTRA PEQUEÑO (<= 480px) */
+@media (max-width: 480px) {
+    .header {
+        height: 70px;
+        padding: 0 15px; 
+    }
+
+    .hamburger {
+        left: 3%;
+        top: 1%;
+        position: absolute;
+    }
+
+    .logoimg {
+        width: 120px;
+    }
+
+    .hero-btn-fixed {
+        font-size: 0.8rem;
+        padding: 8px 15px;
+        letter-spacing: 1px;
+    }
+}

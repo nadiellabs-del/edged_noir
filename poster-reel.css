@@ -1,0 +1,370 @@
+/* ========================================================
+   GALERÍA DE POSTERS EN CURVA 3D + VENTANA DE DETALLE
+   Se usa en index.html y posters.html (con poster-reel.js)
+   ======================================================== */
+
+/* --- SECCIÓN DE POSTERS (fila curva en 3D) --- */
+.poster-reel {
+    --reel-bg: #ECECEA;
+    --reel-ink: #161616;
+    --reel-muted: #6E6E6C;
+    --reel-line: #D2D2CF;
+
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    height: 760px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 60%, #F7F7F5 0%, var(--reel-bg) 70%);
+    color: var(--reel-ink);
+    /* Las medidas internas (cqw / cqh) se calculan respecto a esta sección */
+    container-type: size;
+}
+
+.poster-reel-head {
+    position: absolute;
+    top: 44px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    text-align: center;
+    pointer-events: none;
+    padding: 0 16px;
+}
+
+.poster-reel-kicker {
+    display: block;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--reel-muted);
+    margin-bottom: 6px;
+}
+
+/* Título grande en negro, todo en GW Bantley */
+.poster-reel-title {
+    font-family: 'GW Bantley Regular-Trial', serif;
+    font-weight: normal;
+    font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+    line-height: 1.05;
+    margin: 0;
+    color: #000000;
+    white-space: nowrap;
+    /* La cola de la "t" final sobresale a la derecha; esto centra lo que se ve (medido) */
+    transform: translateX(-0.07em);
+}
+
+.poster-reel-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    margin: 0;
+    text-align: center;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--reel-muted);
+    pointer-events: none;
+}
+
+.poster-band {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+
+.poster-band.is-ready {
+    opacity: 1;
+}
+
+.poster-tile {
+    position: absolute;
+    transform-style: preserve-3d;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* Arrastre: clic sostenido con el mouse o deslizando en el celular.
+   pan-y deja que el dedo siga haciendo scroll vertical de la página. */
+.poster-reel {
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.poster-reel.is-dragging,
+.poster-reel.is-dragging .poster-tile {
+    cursor: grabbing;
+}
+
+.poster-strip {
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    background: #D6D6D3;
+    backface-visibility: hidden;
+}
+
+.poster-strip.is-first { border-radius: 3px 0 0 3px; }
+.poster-strip.is-last  { border-radius: 0 3px 3px 0; }
+
+.poster-strip img {
+    position: absolute;
+    top: 0;
+    max-width: none;
+    object-fit: cover;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    transition: filter 0.3s ease;
+}
+
+.poster-tile:hover .poster-strip img {
+    filter: brightness(1.12) contrast(1.05);
+}
+
+/* Lista de posters para teclado: invisible hasta que se enfoca con Tab */
+.poster-reel-a11y {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    z-index: 3;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.poster-reel-a11y button {
+    position: absolute;
+    left: -9999px;
+    white-space: nowrap;
+    background: var(--reel-ink);
+    color: #fff;
+    border: 0;
+    padding: 8px 14px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.poster-reel-a11y button:focus-visible {
+    left: 0;
+    bottom: 0;
+    outline: 2px solid var(--reel-ink);
+    outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+    .poster-reel { height: 580px; }
+    .poster-reel-head { top: 32px; }
+    /* Título en una línea ocupando el 95% del ancho, igual que "But as a Statement".
+       El trazo de la frase en GW Bantley mide ~6.94 veces su tamaño de letra: 95vw / 6.94 ≈ 13.7vw */
+    .poster-reel-head { padding: 0; }
+    .poster-reel-title,
+    .poster-reel--page .poster-reel-title { font-size: 13.7vw; }
+
+    /* Frase de abajo más grande en celular */
+    .poster-reel-hint { bottom: 18px; font-size: 1rem; letter-spacing: 0.12em; padding: 0 16px; }
+}
+
+/* --- VENTANA DE DETALLE DEL POSTER --- */
+.poster-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.poster-modal[hidden] { display: none; }
+.poster-modal.is-open { opacity: 1; }
+
+.poster-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(18, 18, 18, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.poster-modal-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    width: min(980px, 100%);
+    max-height: calc(100vh - 48px);
+    overflow: auto;
+    background: #F6F6F4;
+    color: #161616;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.35s ease;
+}
+
+.poster-modal.is-open .poster-modal-panel {
+    transform: none;
+}
+
+.poster-modal-media {
+    background: #E4E4E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+}
+
+.poster-modal-media img {
+    width: 100%;
+    max-height: calc(100vh - 104px);
+    object-fit: contain;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.poster-modal-body {
+    display: flex;
+    flex-direction: column;
+    padding: 48px 40px 32px;
+}
+
+.poster-modal-count {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #6E6E6C;
+}
+
+/* Título y frase con la misma fuente de "Raw Style" del inicio */
+.poster-modal-title {
+    font-family: javanese, serif;
+    font-weight: normal;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    line-height: 1.05;
+    margin: 10px 0 18px;
+}
+
+.poster-modal-quote {
+    font-family: javanese, serif;
+    font-size: 1.4rem;
+    line-height: 1.35;
+    margin: 0 0 18px;
+    padding-left: 14px;
+    border-left: 2px solid #161616;
+}
+
+.poster-modal-desc {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: #3A3A38;
+    margin: 0 0 22px;
+}
+
+.poster-modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+}
+
+.poster-modal-tags span {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border: 1px solid #C9C9C6;
+    padding: 6px 10px;
+    color: #4A4A48;
+}
+
+.poster-modal-nav {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.poster-modal-nav button {
+    flex: 1;
+    background: transparent;
+    border: 1px solid #161616;
+    color: #161616;
+    padding: 12px 16px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.poster-modal-nav button:hover,
+.poster-modal-nav button:focus-visible {
+    background: #161616;
+    color: #F6F6F4;
+}
+
+.poster-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background: #F6F6F4;
+    color: #161616;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.poster-modal-close:hover,
+.poster-modal-close:focus-visible {
+    background: #161616;
+    color: #F6F6F4;
+}
+
+@media (max-width: 768px) {
+    .poster-modal { padding: 0; align-items: stretch; }
+    .poster-modal-panel {
+        grid-template-columns: 1fr;
+        max-height: 100vh;
+        width: 100%;
+    }
+    .poster-modal-media { padding: 56px 24px 20px; }
+    .poster-modal-media img { max-height: 55vh; width: auto; max-width: 100%; }
+    .poster-modal-body { padding: 24px 22px 28px; }
+}
+
+/* --- VARIANTE PÁGINA COMPLETA (posters.html) --- */
+.poster-reel--page {
+    height: max(640px, 100vh);
+    height: max(640px, 100svh);
+}
+
+.poster-reel--page .poster-reel-head {
+    top: 104px; /* debajo del header fijo */
+}
+
+.poster-reel--page .poster-reel-title {
+    font-size: clamp(3rem, 7vw, 6rem);
+}
+
+@media (max-width: 768px) {
+    .poster-reel--page { height: max(600px, 100svh); }
+    .poster-reel--page .poster-reel-head { top: 96px; }
+    .poster-reel--page .poster-reel-title { font-size: 13.7vw; }
+}
