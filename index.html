@@ -35,6 +35,7 @@
             <nav class="header-nav">
                 <ul class="nav-list">
                     <li class="nav-item"><a href="men.html">MEN</a></li>
+                    <li class="nav-item"><a href="index.html#posterReel">POSTERS</a></li>
                 </ul>
             </nav>
 
@@ -46,6 +47,7 @@
 
         <nav id="mobile-menu" class="mobile-menu">
             <a href="men.html">MEN</a>
+            <a href="index.html#posterReel">POSTERS</a>
         </nav>
     </header>
     <main class="main-hero">
@@ -269,6 +271,33 @@
         hamburger.classList.toggle("active");
         mobileMenu.classList.toggle("open");
     });
+
+    // ===== ENLACE "POSTERS" DEL HEADER =====
+    // Baja hasta la sección de posters y la deja centrada en la pantalla.
+    (function () {
+        const posterSection = document.getElementById("posterReel");
+        if (!posterSection) return;
+
+        function centerPosters(smooth) {
+            posterSection.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "center" });
+        }
+
+        document.querySelectorAll('a[href$="#posterReel"]').forEach((link) => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                hamburger.classList.remove("active");
+                mobileMenu.classList.remove("open");
+                history.replaceState(null, "", "#posterReel");
+                centerPosters(true);
+            });
+        });
+
+        // Si se llega desde otra página (index.html#posterReel), también se centra
+        if (location.hash === "#posterReel") {
+            // Pequeña espera para que las imágenes terminen de acomodarse antes de centrar
+            window.addEventListener("load", () => setTimeout(() => centerPosters(false), 150));
+        }
+    })();
 </script>
 
 <!-- El cambio del logo a negro al pasar el mouse se hace en index.css (.header-logo:hover .logoimg) -->
